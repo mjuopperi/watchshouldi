@@ -1,0 +1,5 @@
+
+$(function() {
+    $('.svg').inlineSVG();
+
+});

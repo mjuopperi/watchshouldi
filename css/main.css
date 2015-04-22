@@ -7,6 +7,8 @@
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #727272; }
 .divider-color         { border-color: #b6b6b6; }
+.up-vote-color         { fill: #4CAF50 }
+.down-vote-color       { fill: #ff5722 }
 
 
 #header {
@@ -40,12 +42,16 @@ img.vote {
 
 
 .up-vote {
-    fill: #f00;
+    max-width: 50px;
+    max-height: 50px;
+    margin: 2px;
 }
 
 
-img.down-vote {
-
+.down-vote {
+    max-width: 50px;
+    max-height: 50px;
+    margin: 2px;
 }
 
 .container {
@@ -58,7 +64,6 @@ img.down-vote {
 #votes {
     display: inline-block;
     width: 600px;
-    height: 40px;
     border: 1px solid #444;
 }
 

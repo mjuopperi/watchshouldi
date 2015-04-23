@@ -10,6 +10,26 @@
 .up-vote-color         { fill: #4CAF50 }
 .down-vote-color       { fill: #ff5722 }
 
+@-webkit-keyframes upvote-button-hover {
+    from { fill: #4CAF50; }
+    to { fill: #212121; }
+}
+
+@-webkit-keyframes downvote-button-hover {
+    from { fill: #ff5722; }
+    to { fill: #212121; }
+}
+
+@-webkit-keyframes upvote-button {
+    from { fill: #212121; }
+    to { fill: #4CAF50; }
+}
+
+@-webkit-keyframes downvote-button {
+    from { fill: #212121; }
+    to { fill: #ff5722; }
+}
+
 
 #header {
     display: block;
@@ -45,6 +65,8 @@ img.vote {
     max-width: 50px;
     max-height: 50px;
     margin: 2px;
+    -webkit-animation-name: "upvote-button";
+    -webkit-animation-duration: 0.5s;
 }
 
 
@@ -52,6 +74,21 @@ img.vote {
     max-width: 50px;
     max-height: 50px;
     margin: 2px;
+    -webkit-animation-name: "downvote-button";
+    -webkit-animation-duration: 0.5s;
+}
+
+.up-vote:hover {
+    -webkit-animation-name: "upvote-button-hover"; 
+    -webkit-animation-duration: 0.5s;
+    fill: #212121;
+}
+
+.down-vote:hover {
+    -webkit-animation-name: "downvote-button-hover"; 
+    -webkit-animation-duration: 0.5s;
+    fill: #212121;
+    border-radius: 100%;
 }
 
 .container {

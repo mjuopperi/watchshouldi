@@ -1,22 +1,26 @@
 $(function() {
     var omdbUrl = "http://www.omdbapi.com/";
+    var movieName = $("#movie h1");
+    var moviePoster = $('#movie #poster');
     $('.svg').inlineSVG();
     
     $('form').submit(function(event){
+        movieName.html("");
+        moviePoster.attr("src", "");
         event.preventDefault();
-        $("#circularG").show();
+        $("#ajax-loader").show();
         $.ajax({
             url: omdbUrl,
             type: 'GET',
             data: {
-                t: $('#input-search').val()               ,
+                t: $('#input-search').val(),
                 plot: 'short',
                 r: 'json'
             },
             success: function(data) {
-                $("#circularG").hide();
-                $('#movie h1').append(data.Title.toUpperCase());
-                $('#movie img').attr('src', data.Poster);
+                $("#ajax-loader").hide();
+                movieName.append(data.Title.toUpperCase());
+                moviePoster.attr('src', data.Poster);
             }
         })
     })

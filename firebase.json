@@ -6,5 +6,8 @@
     "**/.*",
     "**/node_modules/**",
     "**/docs/**"
+  ],
+  "rewrites": [
+    { "source": "**/vote/*", "destination": "/vote.html" }
   ]
 }

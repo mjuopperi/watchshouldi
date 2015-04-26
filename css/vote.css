@@ -63,6 +63,12 @@ h1 {
     text-align: center;
 }
 
+#votes > button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
 img.vote {
     display: inline-block;
     width: 34px;

@@ -1,31 +1,45 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link href="css/main.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="js/lib/jquery.inlinesvg.js"></script>
     <script src="js/lib/lodash.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script src="js/main.js"></script>
 </head>
+
 <body>
     <div id="header">
-
     </div>
     <div id="content">
-        <div id="movie">
-            <h1>Star Wars: Episode VII - The Force Awakens</h1>
-            <img src="http://ia.media-imdb.com/images/M/MV5BMTUwMjU0MzQwNV5BMl5BanBnXkFtZTgwNzQwODUzNTE@._V1_SX214_AL_.jpg">
+        <div id="movie" class="primary-text-color">
+            <h1></h1>
+            <img id="poster">
+            <img id="ajax-loader" src="assets/ajax-loader.gif">
         </div>
         <div class="container">
             <div id="votes">
-                <a href="#"><img src="img/up-arrow.svg" class="svg vote up-vote up-vote-color"></a>
-                <a href="#"><img src="img/down-arrow.svg" class="svg vote down-vote down-vote-color"></a>
+                <a href="#"><img src="img/up-arrow.svg" class="svg vote up-vote up-vote-color">
+                </a>
+                <a href="#"><img src="img/down-arrow.svg" class="svg vote down-vote down-vote-color">
+                </a>
             </div>
             <div id="chat">
-
             </div>
         </div>
-
+        <form>
+<ul class="movie-search">
+    <li>
+        <input id="input-search" type="text" name="title" class="field-long" placeholder="Title"/>
+    </li>
+    <li>
+        <input type="submit" value="Search" class="default-primary-color"/>
+    </li>
+</ul>
+</form>
     </div>
 </body>
+
 </html>

@@ -101,7 +101,6 @@ $(function() {
     }
 
     function getMovies() {
-        console.log("laa");
         var query = $('#input-search').val();
         if (!_.isEmpty(query)) {
             //clearMovies();

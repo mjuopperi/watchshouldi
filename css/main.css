@@ -100,6 +100,7 @@ select{
     margin-left: -26px;
     background: transparent url("../img/magnifying-glass.svg");
     background-size: 100%;
+    vertical-align: middle;
 }
 
 .movie-search input[type=submit]:hover, .movie-search input[type=button]:hover{

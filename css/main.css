@@ -157,7 +157,7 @@ p.error {
     background-clip: padding-box;
     border: 10px solid rgba(255, 255, 255, 0.5);
     padding-bottom: 20px;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 #movie h1 {

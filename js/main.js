@@ -8,6 +8,26 @@ $(function() {
     var error = $("#error");
     $('.svg').inlineSVG();
 
+    var votesRef = new Firebase("https://watchshouldi.firebaseio.com/votes");
+
+    function generateId(length) {
+        return new Array(length).join().replace(/(.|$)/g, function(){return ((Math.random()*36)|0).toString(36)[Math.random()<.5?"toString":"toUpperCase"]();});
+    }
+
+    function createPoll(id) {
+        var pollId = generateId(6)
+        var pollRef = votesRef.child(pollId);
+        pollRef.set({
+            movie_id: id
+        });
+        window.location = window.location.href + "/vote/" + pollId;
+    }
+
+    $("#movie-info").on("click", "#create-poll", function() {
+        var movieId = movie.data("id");
+        createPoll(movieId);
+    });
+
     var results;
 
     function backdropUrl(path) {
@@ -35,6 +55,7 @@ $(function() {
         results = data.results;
         var firstResult = _.first(results);
         if (typeof firstResult != 'undefined') {
+            movie.data("id", firstResult.id);
             getMovieInfo(firstResult.id);
             movie.find("h1").html(firstResult.title);
             setBackdrop(firstResult.backdrop_path);

@@ -119,6 +119,14 @@ select{
     background-size: cover;
 }
 
+#content a, #content a:visited {
+    color: #0288d1;
+    text-decoration: none;
+}
+
+#content a:hover {
+    color: #03a9f4;
+}
 
 #error {
     display: none;

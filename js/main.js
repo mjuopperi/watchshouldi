@@ -19,12 +19,14 @@ $(function() {
     }
 
     function showError(errorText) {
+        movie.hide();
         error.find("p").text(errorText);
         error.show();
         error.delay(3000).fadeOut(200);
     }
 
     function renderNotFound() {
+        movie.hide();
         showError("Could not find movie. Please try again.")
     }
 
@@ -78,10 +80,6 @@ $(function() {
     function renderError() {
         $("#ajax-loader").hide();
         showError("Movie search failed.");
-    }
-
-    function clearMovies() {
-        movie.fadeOut(300);
     }
 
     function getMovieInfo(id) {

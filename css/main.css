@@ -123,16 +123,24 @@ select{
 #error {
     display: none;
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 0;
     right: 0;
+    max-width: 400px;
     margin: auto;
     text-align: center;
+    background: rgba(244, 67, 54, 0.9);
+    -webkit-background-clip: padding;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
 }
 
 p.error {
-    font-family: sans-serif;
     font-size: 16px;
+    color: #fff;
+    margin: 8px;
 }
 
 #movie {

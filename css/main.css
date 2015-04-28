@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Josefin+Slab);
-@import url(https://fonts.googleapis.com/css?family=Cabin+Sketch);
+@import url(http://fonts.googleapis.com/css?family=Lato);
 
 .dark-primary-color    { background: #0288d1; }
 .default-primary-color { background: #03a9f4; }
@@ -14,7 +14,7 @@
 .warn-color            { color: #f44336}
 
 body, html {
-    font-family: 'Cabin Sketch', cursive;
+    font-family: 'Lato', sans-serif;
     margin: 0;
 }
 
@@ -65,6 +65,7 @@ h1 {
 .movie-search input[type=text],
 textarea,
 select{
+    font-family: 'Lato', sans-serif;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -180,7 +181,7 @@ p.error {
     background-color: #0288d1;
     width: 100%;
     font-size: 16px;
-    font-family: 'Cabin Sketch', cursive;
+    font-family: 'Lato', sans-serif;
     margin-bottom: 8px;
 }
 

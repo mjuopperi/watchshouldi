@@ -20,7 +20,13 @@ $(function() {
         pollRef.set({
             movie_id: id
         });
-        window.location = window.location.href + "/vote/" + pollId;
+        redirectToPoll(pollId);
+    }
+    
+    function redirectToPoll(pollId) {
+        var url = window.location.href;
+        if (url.substr(-1) != '/') url += '/';
+        window.location = url + "vote/" + pollId;
     }
 
     $("#movie-info").on("click", "#create-poll", function() {

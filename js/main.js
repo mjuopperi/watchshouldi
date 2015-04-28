@@ -2,7 +2,7 @@ $(function() {
     var tmdbUrl = "https://api.themoviedb.org/3";
     var imageUrl = "https://image.tmdb.org/t/p";
     var posterWidth = "/w500";
-    var backdropWidth = "/original";
+    var backdropWidth = "/w1280";
 
     var movie = $("#movie");
     var error = $("#error");
@@ -31,16 +31,48 @@ $(function() {
     function renderMovie(data) {
         $("#ajax-loader").hide();
         results = data.results;
-        console.log("data:", data);
         var firstResult = _.first(results);
         if (typeof firstResult != 'undefined') {
-            movie.find("h1").append(firstResult.title);
-            // TODO: Check if poster exists and show placeholder if not
-            var moviePoster = movie.find("img");
-            moviePoster.attr("src", posterUrl + "/w" + posterWidth + firstResult.poster_path);
-            moviePoster.fadeIn(200);
+            getMovieInfo(firstResult.id);
+            movie.find("h1").html(firstResult.title);
+            setBackdrop(firstResult.backdrop_path);
+            setPoster(firstResult.poster_path);
+            movie.show();
         } else renderNotFound();
-        $('#input-search').val("");
+    }
+
+    function setBackdrop(path) {
+        var imageUrl = _.isEmpty(path) ? "img/default-backdrop.jpg" :  backdropUrl(path);
+        $('<img/>').attr('src', imageUrl).load(function() {
+            $(this).remove();
+            $("#content").css('background-image', 'url(' + imageUrl + ')');
+        });
+    }
+
+    function setPoster(path) {
+        var imageUrl = _.isEmpty(path) ? "img/default_poster.svg" :  posterUrl(path);
+        var moviePoster = movie.find("#poster");
+        moviePoster.attr("src", imageUrl);
+        moviePoster.show();
+    }
+
+    function renderMovieInfo(data) {
+        $("#movie-info").html(
+            $("<table>").append(
+                $("<tr>").append(
+                    $("<td>").text("Release date:")).append(
+                    $("<td>").text(moment(data.release_date).format("DD.MM.YYYY")))).append(
+                $("<tr>").append(
+                    $("<td>").text("Runtime:")).append(
+                    $("<td>").text(data.runtime + " min"))).append(
+                $("<tr>").append(
+                    $("<td>").text("Genres:")).append(
+                    $("<td>").text(_.map(data.genres, "name").join(", ")))).append(
+                $("<tr>").append(
+                    $("<td>").text("IMDB:")).append(
+                    $("<td>").append("<a href=http://www.imdb.com/title/" + data.imdb_id + ">" + data.imdb_id + "</a>"))))
+            .append(
+                $("<p>").text(data.overview))
     }
 
     function renderError() {
@@ -49,24 +81,43 @@ $(function() {
     }
 
     function clearMovies() {
-        movie.find("img").hide();
-        movie.find("h1").text("");
+        movie.fadeOut(300);
     }
 
-    $('form').submit(function(event){
-        clearMovies();
-        event.preventDefault();
-        $("#ajax-loader").show();
+    function getMovieInfo(id) {
         $.ajax({
-            url: tmdbUrl + "/search/movie",
+            url: tmdbUrl + "/movie/" + id,
             type: 'GET',
             data: {
-                query: $('#input-search').val(),
                 api_key: "3234cd735a781c6bc9cb637e5dad070d"
             },
-            success: renderMovie,
-            error: renderError
+            success: renderMovieInfo
         })
+    }
+
+    function getMovies() {
+        console.log("laa");
+        var query = $('#input-search').val();
+        if (!_.isEmpty(query)) {
+            //clearMovies();
+            $("#ajax-loader").show();
+            $.ajax({
+                url: tmdbUrl + "/search/movie",
+                type: "GET",
+                data: {
+                    query: query,
+                    api_key: "3234cd735a781c6bc9cb637e5dad070d"
+                },
+                success: renderMovie,
+                error: renderError
+            })
+        }
+    }
+
+    $("form").submit(function(event){
+        event.preventDefault();
+        getMovies();
+        $('#input-search').val("");
     })
 });
 

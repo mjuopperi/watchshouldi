@@ -62,6 +62,13 @@ $(function() {
         $("#movie-info").html(
             $("<table>").append(
                 $("<tr>").append(
+                    $("<td>").attr("colspan", 2).append(
+                        $("<button>", {
+                          id: "create-poll",
+                          text: "Create a poll from this movie"
+                        })
+                    ))).append(
+                $("<tr>").append(
                     $("<td>").text("Release date:")).append(
                     $("<td>").text(moment(data.release_date).format("DD.MM.YYYY")))).append(
                 $("<tr>").append(

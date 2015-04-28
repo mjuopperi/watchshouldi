@@ -173,6 +173,16 @@ p.error {
     color: #000;
 }
 
+#movie button {
+    border: none;
+    color: #fff;
+    background-color: #0288d1;
+    width: 100%;
+    font-size: 16px;
+    font-family: 'Cabin Sketch', cursive;
+    margin-bottom: 8px;
+}
+
 .container {
     display: inline-block;
     vertical-align: top;
@@ -209,8 +219,17 @@ p.error {
     margin-left: 10px;
 }
 
+#movie-info table {
+    margin: 0;
+    border-collapse: collapse;
+    padding: 0;
+}
+
 #movie-info td {
     vertical-align: top;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 2px;
 }
 
 #movie-info td:last-child {

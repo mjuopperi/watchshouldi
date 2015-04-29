@@ -2,31 +2,74 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>WatchShouldI</title>
     <link href="css/vote.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="js/lib/jquery.inlinesvg.js"></script>
     <script src="js/lib/lodash.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="js/main.js"></script>
 </head>
 
 <body>
-    <div id="header" class="default-primary-color">
+<div id="content" style="background-image: url(https://image.tmdb.org/t/p/w1280/a6pB1w4lwp0WeTRQk9Q2K1F9W34.jpg);">
+    <div id="header">
+        <h1>WatchShouldI</h1>
     </div>
-    <div id="content">
-        <div id="movie" class="primary-text-color">
-            <h1>BETTER CALL SAUL</h1>
-            <img src="https://fanart.tv/fanart/tv/273181/tvposter/better-call-saul-54a6dad7dc672.jpg" id="poster">
+    <div id="movie" class="primary-text-color" style="display: block;">
+        <div id="titles" style="width: 100%;">
+            <h1>Batman: The Dark Knight Returns, Part 1</h1>
+            <div id="input-comments">
+                <form class="send-comment">
+                    <input id="input-search" type="text" name="title" class="field-long" placeholder="Send a comment"/>
+                    <input type="submit" value=""/>
+                </form>
+            </div>
         </div>
-        <div class="container">
-            <div id="votes">
-                <button id="up-vote"><img src="img/up-arrow.svg" class="svg vote up-vote up-vote-color"></button>
-                <button id="down-vote"><img src="img/down-arrow.svg" class="svg vote down-vote down-vote-color"></button>
+
+        <img id="poster" src="https://image.tmdb.org/t/p/w500/t1UAqk1Yej8rfxEUqNLFyKkcny1.jpg">
+        <div id="movie-info">
+            <table>
+                <tbody>
+
+                <tr>
+                    <td>Release date:</td>
+                    <td>25.09.2012</td>
+                </tr>
+                <tr>
+                    <td>Runtime:</td>
+                    <td>76 min</td>
+                </tr>
+                <tr>
+                    <td>Genres:</td>
+                    <td>Action, Animation</td>
+                </tr>
+                <tr>
+                    <td>IMDB:</td>
+                    <td><a href="http://www.imdb.com/title/tt2313197">tt2313197</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Batman has not been seen for ten years. A new breed of criminal ravages Gotham City, forcing 55-year-old Bruce Wayne back into the cape and cowl. But, does he still have what it takes to fight crime in a new era?</p>
+            <div id="votes-container">
+                <div id="votes">
+                    <button id="up-vote"><img src="img/up-arrow.svg" class="svg vote up-vote up-vote-color"></button>
+                    <button id="down-vote"><img src="img/down-arrow.svg" class="svg vote down-vote down-vote-color"></button>
+                </div>
             </div>
-            <div id="chat">
-            </div>
+
+        </div>
+        <div id="comments">
+
         </div>
     </div>
+    <img id="ajax-loader" src="assets/preloader.gif">
+    <div id="error">
+        <p class="error"></p>
+    </div>
+</div>
 </body>
 
 </html>

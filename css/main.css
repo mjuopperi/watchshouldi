@@ -162,6 +162,22 @@ p.error {
     margin: 8px;
 }
 
+#info {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 160px;
+}
+
+#info li {
+    list-style-type: none;
+    margin: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 1px 1px 2px #000;
+}
+
 #results {
     display: none;
     position: relative;

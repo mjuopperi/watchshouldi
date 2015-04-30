@@ -4,6 +4,8 @@ $(function() {
     var imageUrl = "https://image.tmdb.org/t/p";
     var posterWidth = 500;
     var backdropWidth = "/w1280";
+    var defaultBackdrop;
+    var currentBackdrop;
 
     var movieDiv = $("#movie");
     var errorDiv = $("#error");
@@ -86,10 +88,28 @@ $(function() {
     }
 
     function setBackdrop(path) {
-        var imageUrl = _.isEmpty(path) ? "img/default-backdrop.jpg" :  backdropUrl(path);
-        $('<img/>').attr('src', imageUrl).load(function() {
+        if (typeof currentBackdrop == "undefined" || (typeof currentBackdrop != "undefined" && !currentBackdrop.endsWith(path))) {
+            if (!_.isEmpty(path)) {
+                setBackdropImage(backdropUrl(path));
+            } else {
+                if (!_.isEmpty(defaultBackdrop)) setBackdropImage(defaultBackdrop);
+                else {
+                    $.getJSON(tmdbUrl + "/movie/popular?api_key=" + tmdbApiKey, function (data) {
+                        setBackdropImage(backdropUrl(_.first(data.results).backdrop_path))
+                    })
+                }
+            }
+        }
+    }
+
+    function setBackdropImage(url) {
+        currentBackdrop = url;
+        var backdrop = $("#backdrop");
+        backdrop.fadeOut();
+        $('<img/>').attr('src', url).load(function() {
             $(this).remove();
-            $("#content").css('background-image', 'url(' + imageUrl + ')');
+            backdrop.hide();
+            backdrop.attr("src", url).fadeIn(1000);
         });
     }
 
@@ -232,5 +252,7 @@ $(function() {
         searchForContent();
         $("#input-search").val("");
     });
+
+    setBackdrop();
 });
 

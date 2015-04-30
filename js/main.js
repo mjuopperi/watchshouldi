@@ -111,7 +111,6 @@ $(function() {
 
     function setBackdropImage(url) {
         currentBackdrop = url;
-        console.log("Setting some back drops", currentBackdrop);
         var backdrop = $("#backdrop");
         backdrop.fadeOut();
         $("<img/>").attr("src", url).load(function() {
@@ -267,7 +266,6 @@ $(function() {
     }
 
     $(window).resize(function() {
-        console.log($(window).width());
         if ($(window).width() < 1000) {
             $("#header").find("h1").text("WSI");
         } else {

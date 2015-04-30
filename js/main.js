@@ -17,11 +17,12 @@ $(function() {
         return new Array(length).join().replace(/(.|$)/g, function(){return ((Math.random()*36)|0).toString(36)[Math.random()<.5?"toString":"toUpperCase"]();});
     }
 
-    function createPoll(id) {
-        var pollId = generateId(6)
+    function createPoll(id, type) {
+        var pollId = generateId(6);
         var pollRef = votesRef.child(pollId);
         pollRef.set({
-            movie_id: id
+            id: id,
+            type: type
         });
         redirectToPoll(pollId);
     }
@@ -33,8 +34,7 @@ $(function() {
     }
 
     $("#movie-info").on("click", "#create-poll", function() {
-        var movieId = movieDiv.data("id");
-        createPoll(movieId);
+        createPoll(movieDiv.data("id"), movieDiv.data("type"));
     });
 
     var results;
@@ -78,7 +78,7 @@ $(function() {
         $("#ajax-loader").hide();
         $("#results").hide();
         if (typeof data != 'undefined') {
-            movieDiv.data("id", data.id);
+            movieDiv.data("id", data.id).data("type", data.media_type);
             movieDiv.find("h1").text(nameOrTitle(data));
             getInfo(data);
             setBackdrop(data.backdrop_path);

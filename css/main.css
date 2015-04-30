@@ -292,7 +292,7 @@ p.error {
 #poster {
     display: inline-block;
     max-height: 300px;
-    max-width: 200px;
+    width: 200px;
     vertical-align: top;
 }
 
@@ -312,14 +312,19 @@ p.error {
 }
 
 #movie-info td {
+    font-size: 14px;
     vertical-align: top;
     margin-top: 0;
-    padding-top: 0;
+    padding: 4px 0;
     margin-bottom: 2px;
 }
 
 #movie-info td:last-child {
     width: 60%;
+}
+
+#movie-info p {
+    font-size: 14px;
 }
 
 #ajax-loader {

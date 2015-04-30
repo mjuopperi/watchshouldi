@@ -54,7 +54,7 @@ $(function() {
         else return data.title;
     }
 
-    function releaseData(data) {
+    function releaseDate(data) {
         if ("first_air_date" in data) return data.first_air_date;
         else return data.release_date;
     }
@@ -71,15 +71,17 @@ $(function() {
         showError("Could not find movie. Please try again.")
     }
 
-    function renderMovie(movie) {
+    function renderMovieOrShow(data) {
+        clearMovie();
+        console.log("Movie or show:" , data);
         $("#ajax-loader").hide();
         $("#results").hide();
-        if (typeof movie != 'undefined') {
-            movieDiv.data("id", movie.id);
-            movieDiv.find("h1").html(movie.title);
-            getMovieInfo(movie.id);
-            setBackdrop(movie.backdrop_path);
-            setPoster(movie.poster_path);
+        if (typeof data != 'undefined') {
+            movieDiv.data("id", data.id);
+            movieDiv.find("h1").text(nameOrTitle(data));
+            getInfo(data);
+            setBackdrop(data.backdrop_path);
+            setPoster(data.poster_path);
             movieDiv.show();
         } else renderNotFound();
     }
@@ -99,34 +101,41 @@ $(function() {
         moviePoster.show();
     }
 
-    function renderMovieInfo(data) {
-        $("#movie-info").html(
-            $("<table>").append(
-                $("<tr>").append(
-                    $("<td>").attr("colspan", 2).append(
-                        $("<button>", {
-                          id: "create-poll",
-                          text: "Create a poll from this movie"
-                        })
-                    ))).append(
-                $("<tr>").append(
-                    $("<td>").text("Release date:")).append(
-                    $("<td>").text(moment(data.release_date).format("DD.MM.YYYY")))).append(
+    function renderInfo(data, type) {
+        console.log(data);
+        console.log(type);
+        var table = $("<table>").data("type", type).data("id", data.id);
+        table.append(
+            $("<tr>").append(
+                $("<td>").attr("colspan", 2).append(
+                    $("<button>", {
+                        id: "create-poll",
+                        text: "Create a poll from this movie"
+                    })
+                )));
+        table.append(
+            $("<tr>").append(
+                $("<td>").text("Release date:")).append(
+                $("<td>").text(moment(releaseDate(data)).format("DD.MM.YYYY"))));
+        if (type == "movie") {
+            table.append(
                 $("<tr>").append(
                     $("<td>").text("Runtime:")).append(
-                    $("<td>").text(data.runtime + " min"))).append(
-                $("<tr>").append(
-                    $("<td>").text("Genres:")).append(
-                    $("<td>").text(_.map(data.genres, "name").join(", ")))).append(
-                $("<tr>").append(
-                    $("<td>").text("IMDB:")).append(
-                    $("<td>").append("<a href=" + imdbUrl(data.imdb_id) + ">" + data.imdb_id + "</a>"))))
-            .append(
-                $("<p>").text(data.overview))
+                    $("<td>").text(data.runtime + " min")));
+        }
+        table.append(
+            $("<tr>").append(
+                $("<td>").text("Genres:")).append(
+                $("<td>").text(_.map(data.genres, "name").join(", "))));
+        table.appendCast();
+        console.log("teibel:", table);
+        console.log("teibel datas: " + table.data("id") + " " + table.data("type"));
+        $("#movie-info").html(table).append($("<p>").text(data.overview));
     }
 
     $.fn.appendCast = function () {
-        var elem = $(this).find("table");
+        var elem = $(this).is("table") ? $(this) : $(this).find("table");
+        console.log("element is", elem);
         $.ajax({
             url: tmdbUrl + "/" + $(this).data("type") + "/" + $(this).data("id") + "/credits",
             type: "GET",
@@ -134,7 +143,7 @@ $(function() {
                 api_key: tmdbApiKey
             },
             success: function(data) {
-                elem.html(
+                elem.append(
                     $("<tr>").append(
                         $("<td>").text("Cast:")).append(
                         $("<td>").text(_(data.cast).sortBy("order").take(4).map("name").value().join(", ")))).append(
@@ -166,12 +175,12 @@ $(function() {
         var elem = $("<li>").data("type", result.media_type).data("id", result.id).append(
             $("<img>").attr("src", imageUrl)).append(
             $("<div>").append(
-                $("<h2>").text(nameOrTitle(result) + " (" + moment(releaseData(result)).format("YYYY") + ")")).append(
+                $("<h2>").text(nameOrTitle(result) + " (" + moment(releaseDate(result)).format("YYYY") + ")")).append(
                 $("<table>"))
             );
         elem.appendCast();
         elem.click(function() {
-            renderMovie(result);
+            renderMovieOrShow(result);
         });
         return elem;
     }
@@ -181,15 +190,23 @@ $(function() {
         showError("Movie search failed.");
     }
 
-    function getMovieInfo(id) {
+    function getInfo(data) {
         $.ajax({
-            url: tmdbUrl + "/movie/" + id,
+            url: tmdbUrl + "/" + data.media_type + "/" + data.id,
             type: 'GET',
             data: {
                 api_key: tmdbApiKey
             },
-            success: renderMovieInfo
+            success: function(info) {
+                renderInfo(info, data.media_type)
+            }
         })
+    }
+
+    function clearMovie() {
+        movieDiv.find("h1").text("");
+        movieDiv.find("img").attr("src", "");
+        movieDiv.find("#movie-info").empty();
     }
 
     function hideResults() {

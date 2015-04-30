@@ -1,11 +1,12 @@
 $(function() {
+    var tmdbApiKey = "3234cd735a781c6bc9cb637e5dad070d";
     var tmdbUrl = "https://api.themoviedb.org/3";
     var imageUrl = "https://image.tmdb.org/t/p";
-    var posterWidth = "/w500";
+    var posterWidth = 500;
     var backdropWidth = "/w1280";
 
-    var movie = $("#movie");
-    var error = $("#error");
+    var movieDiv = $("#movie");
+    var errorDiv = $("#error");
     $('.svg').inlineSVG();
 
     var votesRef = new Firebase("https://watchshouldi.firebaseio.com/votes");
@@ -22,7 +23,7 @@ $(function() {
         });
         redirectToPoll(pollId);
     }
-    
+
     function redirectToPoll(pollId) {
         var url = window.location.href;
         if (url.substr(-1) != '/') url += '/';
@@ -30,7 +31,7 @@ $(function() {
     }
 
     $("#movie-info").on("click", "#create-poll", function() {
-        var movieId = movie.data("id");
+        var movieId = movieDiv.data("id");
         createPoll(movieId);
     });
 
@@ -40,33 +41,46 @@ $(function() {
         return imageUrl + backdropWidth + path;
     }
 
-    function posterUrl(path) {
-        return imageUrl + posterWidth + path;
+    function posterUrl(path, width) {
+        return imageUrl + "/w" + width + path;
+    }
+
+    function imdbUrl(imdbId) {
+        return "http://www.imdb.com/title/" + imdbId;
+    }
+
+    function nameOrTitle(data) {
+        if("name" in data) return data.name;
+        else return data.title;
+    }
+
+    function releaseData(data) {
+        if ("first_air_date" in data) return data.first_air_date;
+        else return data.release_date;
     }
 
     function showError(errorText) {
-        movie.hide();
-        error.find("p").text(errorText);
-        error.show();
-        error.delay(3000).fadeOut(200);
+        movieDiv.hide();
+        errorDiv.find("p").text(errorText);
+        errorDiv.show();
+        errorDiv.delay(3000).fadeOut(200);
     }
 
     function renderNotFound() {
-        movie.hide();
+        movieDiv.hide();
         showError("Could not find movie. Please try again.")
     }
 
-    function renderMovie(data) {
+    function renderMovie(movie) {
         $("#ajax-loader").hide();
-        results = data.results;
-        var firstResult = _.first(results);
-        if (typeof firstResult != 'undefined') {
-            movie.data("id", firstResult.id);
-            getMovieInfo(firstResult.id);
-            movie.find("h1").html(firstResult.title);
-            setBackdrop(firstResult.backdrop_path);
-            setPoster(firstResult.poster_path);
-            movie.show();
+        $("#results").hide();
+        if (typeof movie != 'undefined') {
+            movieDiv.data("id", movie.id);
+            movieDiv.find("h1").html(movie.title);
+            getMovieInfo(movie.id);
+            setBackdrop(movie.backdrop_path);
+            setPoster(movie.poster_path);
+            movieDiv.show();
         } else renderNotFound();
     }
 
@@ -79,8 +93,8 @@ $(function() {
     }
 
     function setPoster(path) {
-        var imageUrl = _.isEmpty(path) ? "img/default_poster.svg" :  posterUrl(path);
-        var moviePoster = movie.find("#poster");
+        var imageUrl = _.isEmpty(path) ? "img/default_poster.svg" :  posterUrl(path, posterWidth);
+        var moviePoster = movieDiv.find("#poster");
         moviePoster.attr("src", imageUrl);
         moviePoster.show();
     }
@@ -106,9 +120,60 @@ $(function() {
                     $("<td>").text(_.map(data.genres, "name").join(", ")))).append(
                 $("<tr>").append(
                     $("<td>").text("IMDB:")).append(
-                    $("<td>").append("<a href=http://www.imdb.com/title/" + data.imdb_id + ">" + data.imdb_id + "</a>"))))
+                    $("<td>").append("<a href=" + imdbUrl(data.imdb_id) + ">" + data.imdb_id + "</a>"))))
             .append(
                 $("<p>").text(data.overview))
+    }
+
+    $.fn.appendCast = function () {
+        var elem = $(this).find("table");
+        $.ajax({
+            url: tmdbUrl + "/" + $(this).data("type") + "/" + $(this).data("id") + "/credits",
+            type: "GET",
+            data: {
+                api_key: tmdbApiKey
+            },
+            success: function(data) {
+                elem.html(
+                    $("<tr>").append(
+                        $("<td>").text("Cast:")).append(
+                        $("<td>").text(_(data.cast).sortBy("order").take(4).map("name").value().join(", ")))).append(
+                    $("<tr>").append(
+                        $("<td>").text("Crew:")).append(
+                        $("<td>").text(_(data.crew).take(4).map("name").value().join(", ")))
+                );
+            }
+        })
+    };
+
+    function renderResults(data) {
+        $("#ajax-loader").hide();
+        results = _(data.results).filter(function(r) { return r.media_type != "person" })
+            .sortByOrder(["popularity"], [false]).value();
+        if (_.isEmpty(results)) renderError();
+        else {
+            setBackdrop(_.first(results).backdrop_path);
+            $("#results").html(
+                $("<ul>").append(
+                    _.map(results, renderResult)
+                )
+            ).show();
+        }
+    }
+
+    function renderResult(result) {
+        var imageUrl = _.isEmpty(result.poster_path) ? "img/default_poster.svg" :  posterUrl(result.poster_path, 92);
+        var elem = $("<li>").data("type", result.media_type).data("id", result.id).append(
+            $("<img>").attr("src", imageUrl)).append(
+            $("<div>").append(
+                $("<h2>").text(nameOrTitle(result) + " (" + moment(releaseData(result)).format("YYYY") + ")")).append(
+                $("<table>"))
+            );
+        elem.appendCast();
+        elem.click(function() {
+            renderMovie(result);
+        });
+        return elem;
     }
 
     function renderError() {
@@ -121,25 +186,30 @@ $(function() {
             url: tmdbUrl + "/movie/" + id,
             type: 'GET',
             data: {
-                api_key: "3234cd735a781c6bc9cb637e5dad070d"
+                api_key: tmdbApiKey
             },
             success: renderMovieInfo
         })
     }
 
-    function getMovies() {
+    function hideResults() {
+        $("#results").hide();
+        $("#movie").hide();
+    }
+
+    function searchForContent() {
         var query = $('#input-search').val();
         if (!_.isEmpty(query)) {
-            //clearMovies();
+            hideResults();
             $("#ajax-loader").show();
             $.ajax({
-                url: tmdbUrl + "/search/movie",
+                url: tmdbUrl + "/search/multi",
                 type: "GET",
                 data: {
                     query: query,
-                    api_key: "3234cd735a781c6bc9cb637e5dad070d"
+                    api_key: tmdbApiKey
                 },
-                success: renderMovie,
+                success: renderResults,
                 error: renderError
             })
         }
@@ -147,8 +217,8 @@ $(function() {
 
     $("form").submit(function(event){
         event.preventDefault();
-        getMovies();
-        $('#input-search').val("");
-    })
+        searchForContent();
+        $("#input-search").val("");
+    });
 });
 

@@ -9,7 +9,7 @@
     <script src="js/lib/lodash.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/vote.js"></script>
 </head>
 
 <body>
@@ -22,8 +22,8 @@
             <h1>Batman: The Dark Knight Returns, Part 1</h1>
             <div id="input-comments">
                 <form class="send-comment">
-                    <input id="input-search" type="text" name="title" class="field-long" placeholder="Send a comment"/>
-                    <input type="submit" value=""/>
+                    <textarea id="input-search" type="text" name="title" class="field-long secondary-text-color" placeholder="Send a comment" maxlength=120/></textarea>
+                    <div id="remainingChars" class="secondary-text-color"></div>
                 </form>
             </div>
         </div>

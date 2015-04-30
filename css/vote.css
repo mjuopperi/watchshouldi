@@ -286,7 +286,7 @@ img.vote {
     vertical-align: top;
     width: 360px;
     height: 50%;
-    margin-left: 50px;
+    margin-left: 65px;
     border: 1px solid #444;
 }
 
@@ -294,7 +294,19 @@ img.vote {
 
 #input-comments {
     width: 360px;
-    height: 80px;
-    border: 1px solid #444;
+    height: 85px;
+    
     margin: 15px auto;
+}
+
+textarea {
+    resize: none;
+    height: 85px;
+    font-size: 13px;
+}
+
+#remainingChars {
+    text-align: left;
+    font-size: 13px;
+    margin: 3px;
 }

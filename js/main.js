@@ -87,15 +87,22 @@ $(function() {
         } else renderNotFound();
     }
 
+    function shouldChangeBackdrop(path) {
+        return !currentBackdrop ||
+            (!path && currentBackdrop != defaultBackdrop) ||
+            (!!path && !currentBackdrop.endsWith(path))
+    }
+
     function setBackdrop(path) {
-        if (typeof currentBackdrop == "undefined" || (typeof currentBackdrop != "undefined" && !currentBackdrop.endsWith(path))) {
+        if (shouldChangeBackdrop(path)) {
             if (!_.isEmpty(path)) {
                 setBackdropImage(backdropUrl(path));
             } else {
                 if (!_.isEmpty(defaultBackdrop)) setBackdropImage(defaultBackdrop);
                 else {
                     $.getJSON(tmdbUrl + "/movie/popular?api_key=" + tmdbApiKey, function (data) {
-                        setBackdropImage(backdropUrl(_.first(data.results).backdrop_path))
+                        defaultBackdrop = backdropUrl(_.first(data.results).backdrop_path);
+                        setBackdropImage(defaultBackdrop)
                     })
                 }
             }
@@ -104,12 +111,13 @@ $(function() {
 
     function setBackdropImage(url) {
         currentBackdrop = url;
+        console.log("Setting some back drops", currentBackdrop);
         var backdrop = $("#backdrop");
         backdrop.fadeOut();
-        $('<img/>').attr('src', url).load(function() {
+        $("<img/>").attr("src", url).load(function() {
             $(this).remove();
             backdrop.hide();
-            backdrop.attr("src", url).fadeIn(1000);
+            backdrop.css("background-image", "url(" + url + ")").fadeIn(500);
         });
     }
 

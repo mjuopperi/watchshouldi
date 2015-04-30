@@ -127,6 +127,9 @@ select{
     position: fixed;
     z-index: -1;
     width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
 }
 
 #content {
@@ -170,7 +173,7 @@ p.error {
 }
 
 #info {
-    width: 50%;
+    width: 90%;
     margin-right: auto;
     margin-left: auto;
     margin-top: 160px;

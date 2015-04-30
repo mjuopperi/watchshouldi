@@ -73,7 +73,6 @@ $(function() {
 
     function renderMovieOrShow(data) {
         clearMovie();
-        console.log("Movie or show:" , data);
         $("#ajax-loader").hide();
         $("#results").hide();
         if (typeof data != 'undefined') {
@@ -102,8 +101,6 @@ $(function() {
     }
 
     function renderInfo(data, type) {
-        console.log(data);
-        console.log(type);
         var table = $("<table>").data("type", type).data("id", data.id);
         table.append(
             $("<tr>").append(
@@ -128,14 +125,11 @@ $(function() {
                 $("<td>").text("Genres:")).append(
                 $("<td>").text(_.map(data.genres, "name").join(", "))));
         table.appendCast();
-        console.log("teibel:", table);
-        console.log("teibel datas: " + table.data("id") + " " + table.data("type"));
         $("#movie-info").html(table).append($("<p>").text(data.overview));
     }
 
     $.fn.appendCast = function () {
         var elem = $(this).is("table") ? $(this) : $(this).find("table");
-        console.log("element is", elem);
         $.ajax({
             url: tmdbUrl + "/" + $(this).data("type") + "/" + $(this).data("id") + "/credits",
             type: "GET",

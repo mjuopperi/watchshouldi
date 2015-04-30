@@ -53,10 +53,8 @@ h1 {
 
 #header h1 {
     color: #fff;
-    position: absolute;
-    margin: 0;
-    left: 20px;
-    top: 20px;
+    margin-right: auto;
+    width: 10%;
 }
 
 /*
@@ -64,8 +62,8 @@ h1 {
  */
 
 #header .movie-search {
-    width: 460px;
-    margin: 0;
+    width: 50%;
+    margin: 0 auto 0 -10%;
 }
 
 .solid-background {

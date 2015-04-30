@@ -261,6 +261,20 @@ $(function() {
         $("#input-search").val("");
     });
 
+
+    if ($(window).width() < 1000) {
+        $("#header").find("h1").text("WSI");
+    }
+
+    $(window).resize(function() {
+        console.log($(window).width());
+        if ($(window).width() < 1000) {
+            $("#header").find("h1").text("WSI");
+        } else {
+            $("#header").find("h1").text("WatchShouldI");
+        }
+    });
+
     setBackdrop();
 });
 

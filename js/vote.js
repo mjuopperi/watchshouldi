@@ -2,13 +2,13 @@ $(function() {
     $('.svg').inlineSVG();
 
     var chars = 120;
-    $('#remainingChars').html(chars + ' characters remaining');
+    $('#remainingChars').html(chars);
 
     $('textarea').keyup(function() {
-        var text_length = $('textarea').val().length;
-        var text_remaining = chars - text_length;
+        var textLength = $('textarea').val().length;
+        var charsRemaining = chars - textLength;
 
-        $('#remainingChars').html(text_remaining + ' characters remaining');
+        $('#remainingChars').html(charsRemaining);
     });
 });
 

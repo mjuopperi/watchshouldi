@@ -16,6 +16,10 @@
 body, html {
     font-family: 'Lato', sans-serif;
     margin: 0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
 h1 {
@@ -83,17 +87,25 @@ select{
 }
 
 .send-comment input[type=submit], .send-comment input[type=button]{
-    height: 22px;
-    width: 22px;
-    border: none;
-    outline: none;
-    margin-left: -26px;
-    background-size: 100%;
-    vertical-align: middle;
+    width: 70px;
+    height: 30px;
+    color: #ffffff;
+    background-color: #3498db;
+    font-family: Lato, sans-serif;
+    text-decoration: none;
+    font-size: 1em;
+    border: 2px rgba(255, 255, 255, 0) solid;
+    margin: 5px 0 0 5px;
+
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
 .send-comment input[type=submit]:hover, .send-comment input[type=button]:hover{
-    fill: #0288d1;
+    background-color: #03a9f4;
+    color: #fff;
+    cursor: pointer;
 }
 
 
@@ -162,15 +174,6 @@ p.error {
     text-transform: uppercase;
     color: #000;
     width: 640px;
-}
-
-#movie button {
-    border: none;
-    color: #fff;
-    background-color: #0288d1;
-    font-size: 16px;
-    font-family: 'Lato', sans-serif;
-    margin-bottom: 8px;
 }
 
 .container {
@@ -288,14 +291,16 @@ img.vote {
     height: 50%;
     margin-left: 65px;
     border: 1px solid #444;
+    margin-top: 25px;
 }
 
-
+.send-comment {
+    height: 100px;
+}
 
 #input-comments {
     width: 360px;
     height: 85px;
-    
     margin: 15px auto;
 }
 
@@ -303,10 +308,20 @@ textarea {
     resize: none;
     height: 85px;
     font-size: 13px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 }
 
 #remainingChars {
-    text-align: left;
     font-size: 13px;
     margin: 3px;
+    width: 30px;
+    line-height: 3;
+}
+
+#button-container {
+    display: flex;
+    position: absolute;
+    right: 80px;
 }

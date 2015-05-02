@@ -1,0 +1,13 @@
+{
+  "firebase": "watchshouldi",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**",
+    "**/docs/**"
+  ],
+  "rewrites": [
+    { "source": "**/vote/*", "destination": "/vote.html" }
+  ]
+}

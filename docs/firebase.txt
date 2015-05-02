@@ -1,0 +1,16 @@
+
+Deploying
+
+  Firebase guide:
+  https://www.firebase.com/docs/hosting/guide/deploying.html
+
+  Install firebase-tools:
+  $ npm install -g firebase-tools
+  - or -
+  $ sudo npm install -g firebase-tools
+
+  To update run:
+  $ npm update -g firebase-tools
+
+  Deploy the app:
+  $ firebase deploy

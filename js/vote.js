@@ -41,7 +41,7 @@ $(function() {
     }
 
     function setPoster(path) {
-        var imageUrl = _.isEmpty(path) ? "img/default_poster.svg" :  posterUrl(path, posterWidth);
+        var imageUrl = _.isEmpty(path) ? "/img/default_poster.svg" :  posterUrl(path, posterWidth);
         var moviePoster = $("#poster");
         moviePoster.attr("src", imageUrl);
         moviePoster.show();

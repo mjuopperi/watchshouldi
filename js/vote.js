@@ -1,5 +1,9 @@
 $(function() {
-    $(".svg").inlineSVG();
+    var tmdbApiKey = "3234cd735a781c6bc9cb637e5dad070d";
+    var tmdbUrl = "https://api.themoviedb.org/3";
+    var posterWidth = 500;
+    var defaultBackdrop = "default";
+    var currentBackdrop;
 
     var pollId = window.location.pathname.split('/').pop();
     var pollRef = new Firebase("https://watchshouldi.firebaseio.com/votes/" + pollId);
@@ -9,7 +13,69 @@ $(function() {
     var chars = 120;
     var charsRemaining;
 
+    pollRef.once("value", function(dataSnapshot) {
+        var poll = dataSnapshot.exportVal();
+        getMovieOrShow(poll["type"], poll["id"])
+    });
+
+    function getMovieOrShow(type, id) {
+        $("#ajax-loader").show();
+        $.ajax({
+            url: tmdbUrl + "/" + type + "/" + id,
+            type: 'GET',
+            data: {
+                api_key: tmdbApiKey
+            },
+            success: function (info) {
+                renderMovieOrShow(info)
+            }
+        });
+    }
+
+    function renderMovieOrShow(info) {
+        $("#ajax-loader").hide();
+        $("#movie").find("h1").text(nameOrTitle(info) + " (" + moment(releaseDate(info)).format("YYYY") + ")");
+        setPoster(info.poster_path);
+        setBackdrop(info.backdrop_path);
+        $("#movie").fadeIn(500);
+    }
+
+    function setPoster(path) {
+        var imageUrl = _.isEmpty(path) ? "img/default_poster.svg" :  posterUrl(path, posterWidth);
+        var moviePoster = $("#poster");
+        moviePoster.attr("src", imageUrl);
+        moviePoster.show();
+    }
+
+    function setBackdrop(path) {
+        if (!_.isEmpty(path)) {
+            setBackdropImage(backdropUrl(path));
+        } else {
+            setDefaultBackdrop();
+        }
+    }
+
+    function setBackdropImage(url) {
+        currentBackdrop = url;
+        var backdrop = $("#backdrop");
+        backdrop.fadeOut();
+        $("<img/>").attr("src", url).load(function() {
+            $(this).remove();
+            backdrop.hide();
+            backdrop.css("background-image", "url(" + url + ")").fadeIn(500);
+        });
+    }
+
+    function setDefaultBackdrop() {
+        currentBackdrop = defaultBackdrop;
+        $("#backdrop").fadeOut(400, function() {
+            $(this).css("background-image", "");
+        }).fadeIn(500);
+    }
+
     getComments(commentsRef);
+
+    $(".svg").inlineSVG();
 
     $("#remainingChars").html(chars);
     $("textarea").keyup(function() {

@@ -22,6 +22,10 @@ body, html {
     transition: all 0.5s;
 }
 
+body {
+    background-color: #000;
+}
+
 h1 {
     font-family: 'Josefin Slab', serif;
     font-size: 2.5em;
@@ -55,12 +59,19 @@ h1 {
  *  Content
  */
 
+#backdrop {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-color: #168;
+}
+
 #content {
     width: 100%;
     height: 100%;
-    background-image: url(../img/default-backdrop.jpg);
-    -webkit-background-size: cover;
-    background-size: cover;
 }
 
 #content a, #content a:visited {

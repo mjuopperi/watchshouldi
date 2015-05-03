@@ -9,56 +9,57 @@
     <script src="js/lib/lodash.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="js/util.js"></script>
     <script src="js/vote.js"></script>
 </head>
 
 <body>
-<div id="content" style="background-image: url(https://image.tmdb.org/t/p/w1280/a6pB1w4lwp0WeTRQk9Q2K1F9W34.jpg);">
+    <div id="backdrop"></div>
     <div id="header">
         <h1>WatchShouldI</h1>
     </div>
-    <div id="modal">
-        <div id="name-dialog">
-            <h2>What's your name?</h2>
-            <form id="name-form">
-                <input id=username type="text" placeholder="Johnny Awesome">
-                <input type="submit" value="Submit">
-            </form>
+    <div id="content">
+        <div id="modal">
+            <div id="name-dialog">
+                <h2>What's your name?</h2>
+                <form id="name-form">
+                    <input id=username type="text" placeholder="Johnny Awesome">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
         </div>
-    </div>
-    <div id="movie" class="primary-text-color" style="display: block;">
-        <h2>Should I watch...</h2>
-        <h1>Batman: The Dark Knight Returns, Part 1 (1947)</h1>
-        <img id="poster" src="https://image.tmdb.org/t/p/w500/t1UAqk1Yej8rfxEUqNLFyKkcny1.jpg">
-        <div id="social">
-            <div id="votes-container">
-                <div id="votes" class="unvoted">
-                    <button id="up-vote">Yeah!</button>
-                    <div class="poll">
-                        <div id="poll-status"></div>
-                        <span id="poll-numbers"></span>
+        <div id="movie">
+            <h2>Should I watch...</h2>
+            <h1></h1>
+            <img id="poster">
+            <div id="social">
+                <div id="votes-container">
+                    <div id="votes" class="unvoted">
+                        <button id="up-vote">Yeah!</button>
+                        <div class="poll">
+                            <div id="poll-status"></div>
+                            <span id="poll-numbers"></span>
+                        </div>
+                        <button id="down-vote">Nope.</button>
                     </div>
-                    <button id="down-vote">Nope.</button>
+                </div>
+                <div id="comments-container">
+                    <form>
+                        <textarea id="input-comment" type="text" name="title" placeholder="Send a comment" maxlength=120/ required></textarea>
+                        <div id="button-container">
+                            <p id="remaining-chars">120</p>
+                            <input type="submit" value="Send">
+                        </div>
+                    </form>
+                    <div id="comments"></div>
                 </div>
             </div>
-            <div id="comments-container">
-                <form>
-                    <textarea id="input-comment" type="text" name="title" placeholder="Send a comment" maxlength=120/ required></textarea>
-                    <div id="button-container">
-                        <p id="remaining-chars">120</p>
-                        <input type="submit" value="Send">
-                    </div>
-                </form>
-                <div id="comments">
+            <img id="ajax-loader" src="img/preloader.gif">
+            <div id="error">
+                <p class="error"></p>
             </div>
-
         </div>
     </div>
-    <img id="ajax-loader" src="img/preloader.gif">
-    <div id="error">
-        <p class="error"></p>
-    </div>
-</div>
 </body>
 
 </html>

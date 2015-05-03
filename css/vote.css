@@ -227,6 +227,7 @@ p.error {
     -ms-transition: color 0.3s ease;
     -o-transition: color 0.3s ease;
     transition: color 0.3s ease;
+    outline: none;
 }
 
 #up-vote {
@@ -234,8 +235,12 @@ p.error {
     border-bottom-left-radius: 2px;
 }
 
-#up-vote:hover {
+#up-vote:hover, #up-vote.selected {
     color: #4caf50;
+}
+
+#up-vote.selected {
+    border-bottom: 1px solid #4caf50;
 }
 
 #down-vote {
@@ -243,15 +248,19 @@ p.error {
     border-bottom-right-radius: 2px;
 }
 
-#down-vote:hover {
+#down-vote:hover, #down-vote.selected {
     color: #f44336;
+}
+
+#down-vote.selected {
+    border-bottom: 1px solid #f44336;
 }
 
 #votes .poll {
     position: relative;
     flex: 1 1 auto;
     height: 34px;
-    background-color: #f44336;
+    background-color: #dadada;
 }
 
 #votes span {
@@ -267,7 +276,7 @@ p.error {
 }
 
 #poll-status {
-    width: 50%;
+    width: 0;
     height: 100%;
     background-color: #4caf50;
 }

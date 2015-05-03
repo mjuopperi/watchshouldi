@@ -49,6 +49,65 @@ $(function() {
         $("#input-comment").val("");
         charsRemaining = chars;
         $("#remaining-chars").html(charsRemaining);
+    });
+
+    function upvote() {
+        $("#up-vote").addClass("selected");
+        $("#down-vote").removeClass("selected");
+        votesRef.child(localStorage.userid).set(1)
+    }
+
+    function downvote() {
+        $("#down-vote").addClass("selected");
+        $("#up-vote").removeClass("selected");
+        votesRef.child(localStorage.userid).set(-1)
+    }
+
+    function unvote() {
+        $("#up-vote").removeClass("selected");
+        $("#down-vote").removeClass("selected");
+        votesRef.child(localStorage.userid).remove();
+    }
+
+    $("#up-vote").click(function() {
+        if ($(this).hasClass("selected")) {
+            unvote();
+        } else {
+            upvote();
+        }
+    });
+
+    $("#down-vote").click(function() {
+        if ($(this).hasClass("selected")) {
+            unvote();
+        } else {
+            downvote();
+        }
+    });
+
+    function updatePoll(dataSnapshot) {
+        var votes = _(dataSnapshot.exportVal());
+        var upvotes = votes.filter(function(vote) { return vote > 0 });
+        var totalVotes = votes.size();
+        var totalUpvotes = upvotes.size();
+        $("#poll-status").animate({width: (100 * totalUpvotes / totalVotes) + "%"}, 500);
+        $("#poll-numbers").text(totalUpvotes + " / " + (totalVotes - totalUpvotes));
+    }
+
+    function setInitialSelection(dataSnapshot) {
+        var votes = dataSnapshot.exportVal();
+        if (localStorage.userid in votes) {
+            if (votes[localStorage.userid] > 0) $("#up-vote").addClass("selected");
+            else $("#down-vote").addClass("selected");
+        }
+    }
+
+    votesRef.once("value", function(dataSnapshot) {
+        $("#votes").find(".poll").css("background-color", "#f44336");
+        setInitialSelection(dataSnapshot);
+        votesRef.on("value", function(dataSnapshot) {
+            updatePoll(dataSnapshot);
+        });
     })
 });
 

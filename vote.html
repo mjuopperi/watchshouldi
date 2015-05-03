@@ -18,53 +18,29 @@
         <h1>WatchShouldI</h1>
     </div>
     <div id="movie" class="primary-text-color" style="display: block;">
-        <div id="titles" style="width: 100%;">
-            <h1>Batman: The Dark Knight Returns, Part 1</h1>
-            <div id="input-comments">
-                <form class="send-comment">
-                    <textarea id="input-search" type="text" name="title" class="field-long secondary-text-color" placeholder="Send a comment" maxlength=120/></textarea>
+        <h2>Should I watch...</h2>
+        <h1>Batman: The Dark Knight Returns, Part 1 (1947)</h1>
+        <img id="poster" src="https://image.tmdb.org/t/p/w500/t1UAqk1Yej8rfxEUqNLFyKkcny1.jpg">
+        <div id="social">
+            <div id="votes-container">
+                <div id="votes">
+                    <button id="up-vote">Yeah!</button>
+                    <div class="poll">
+                        <div id="poll-status"></div>
+                        <span>50 / 50</span>
+                    </div>
+                    <button id="down-vote">Nope.</button>
+                </div>
+            </div>
+            <div id="coments-container">
+                <form>
+                    <textarea id="input-search" type="text" name="title" placeholder="Send a comment" maxlength=120/></textarea>
                     <div id="button-container">
-                        <div id="remainingChars" class="secondary-text-color"></div>
+                        <p id="remaining-chars">120</p>
                         <input type="submit" value="Send">
                     </div>
                 </form>
             </div>
-        </div>
-
-        <img id="poster" src="https://image.tmdb.org/t/p/w500/t1UAqk1Yej8rfxEUqNLFyKkcny1.jpg">
-        <div id="movie-info">
-            <table>
-                <tbody>
-
-                <tr>
-                    <td>Release date:</td>
-                    <td>25.09.2012</td>
-                </tr>
-                <tr>
-                    <td>Runtime:</td>
-                    <td>76 min</td>
-                </tr>
-                <tr>
-                    <td>Genres:</td>
-                    <td>Action, Animation</td>
-                </tr>
-                <tr>
-                    <td>IMDB:</td>
-                    <td><a href="http://www.imdb.com/title/tt2313197">tt2313197</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <p>Batman has not been seen for ten years. A new breed of criminal ravages Gotham City, forcing 55-year-old Bruce Wayne back into the cape and cowl. But, does he still have what it takes to fight crime in a new era?</p>
-            <div id="votes-container">
-                <div id="votes">
-                    <button id="up-vote"><img src="img/up-arrow.svg" class="svg vote up-vote up-vote-color"></button>
-                    <button id="down-vote"><img src="img/down-arrow.svg" class="svg vote down-vote down-vote-color"></button>
-                </div>
-            </div>
-
-        </div>
-        <div id="comments">
 
         </div>
     </div>

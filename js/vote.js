@@ -1,14 +1,14 @@
 $(function() {
-    $('.svg').inlineSVG();
+    $(".svg").inlineSVG();
 
     var chars = 120;
-    $('#remainingChars').html(chars);
+    $("#remainingChars").html(chars);
 
-    $('textarea').keyup(function() {
-        var textLength = $('textarea').val().length;
+    $("textarea").keydown(function() {
+        var textLength = $("textarea").val().length;
         var charsRemaining = chars - textLength;
 
-        $('#remainingChars').html(charsRemaining);
+        $("#remaining-chars").html(charsRemaining);
     });
 });
 

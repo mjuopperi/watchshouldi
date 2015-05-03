@@ -240,7 +240,7 @@ $(function() {
         var query = $('#input-search').val();
         if (!_.isEmpty(query)) {
             hideResults();
-            $("#info").fadeOut(500);
+            $("#info").hide();
             $("#ajax-loader").show();
             $.ajax({
                 url: tmdbUrl + "/search/multi",

@@ -273,7 +273,5 @@ $(function() {
             $("#header").find("h1").text("WatchShouldI");
         }
     });
-
-    setBackdrop();
 });
 

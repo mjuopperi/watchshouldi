@@ -162,7 +162,7 @@ $(function() {
 
     function setInitialSelection(dataSnapshot) {
         var votes = dataSnapshot.exportVal();
-        if (localStorage.userid in votes) {
+        if (!!votes &&  localStorage.userid in votes) {
             if (votes[localStorage.userid] > 0) $("#up-vote").addClass("selected");
             else $("#down-vote").addClass("selected");
         }

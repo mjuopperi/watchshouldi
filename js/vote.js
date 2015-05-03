@@ -158,6 +158,8 @@ $(function() {
         var totalUpvotes = upvotes.size();
         $("#poll-status").animate({width: (100 * totalUpvotes / totalVotes) + "%"}, 500);
         $("#poll-numbers").text(totalUpvotes + " / " + (totalVotes - totalUpvotes));
+        if (totalVotes > 0) $("#votes").find(".poll").css("background-color", "#f44336");
+        else $("#votes").find(".poll").css("background-color", "#dadada");
     }
 
     function setInitialSelection(dataSnapshot) {
@@ -165,11 +167,11 @@ $(function() {
         if (!!votes &&  localStorage.userid in votes) {
             if (votes[localStorage.userid] > 0) $("#up-vote").addClass("selected");
             else $("#down-vote").addClass("selected");
+            $("#votes").find(".poll").css("background-color", "#f44336");
         }
     }
 
     votesRef.once("value", function(dataSnapshot) {
-        $("#votes").find(".poll").css("background-color", "#f44336");
         setInitialSelection(dataSnapshot);
         votesRef.on("value", function(dataSnapshot) {
             updatePoll(dataSnapshot);

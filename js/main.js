@@ -4,7 +4,7 @@ $(function() {
     var imageUrl = "https://image.tmdb.org/t/p";
     var posterWidth = 500;
     var backdropWidth = "/w1280";
-    var defaultBackdrop;
+    var defaultBackdrop = "default";
     var currentBackdrop;
 
     var movieDiv = $("#movie");
@@ -98,13 +98,7 @@ $(function() {
             if (!_.isEmpty(path)) {
                 setBackdropImage(backdropUrl(path));
             } else {
-                if (!_.isEmpty(defaultBackdrop)) setBackdropImage(defaultBackdrop);
-                else {
-                    $.getJSON(tmdbUrl + "/movie/popular?api_key=" + tmdbApiKey, function (data) {
-                        defaultBackdrop = backdropUrl(_.first(data.results).backdrop_path);
-                        setBackdropImage(defaultBackdrop)
-                    })
-                }
+                setDefaultBackdrop();
             }
         }
     }
@@ -118,6 +112,13 @@ $(function() {
             backdrop.hide();
             backdrop.css("background-image", "url(" + url + ")").fadeIn(500);
         });
+    }
+
+    function setDefaultBackdrop() {
+        currentBackdrop = defaultBackdrop;
+        $("#backdrop").fadeOut(400, function() {
+            $(this).css("background-image", "");
+        }).fadeIn(500);
     }
 
     function setPoster(path) {
@@ -188,12 +189,15 @@ $(function() {
                     _.map(results, renderResult)
                 )
             ).show();
+            $("#results").find("li").each(function(i) {
+                $(this).delay(i * 50).fadeIn(300);
+            })
         }
     }
 
     function renderResult(result) {
         var imageUrl = _.isEmpty(result.poster_path) ? "img/default_poster.svg" :  posterUrl(result.poster_path, 92);
-        var elem = $("<li>").data("type", result.media_type).data("id", result.id).append(
+        var elem = $("<li>").css("display", "none").data("type", result.media_type).data("id", result.id).append(
             $("<img>").attr("src", imageUrl)).append(
             $("<div>").append(
                 $("<h2>").text(nameOrTitle(result) + " (" + moment(releaseDate(result)).format("YYYY") + ")")).append(
@@ -239,7 +243,7 @@ $(function() {
         var query = $('#input-search').val();
         if (!_.isEmpty(query)) {
             hideResults();
-            $("#info").fadeOut(500);
+            $("#info").hide();
             $("#ajax-loader").show();
             $.ajax({
                 url: tmdbUrl + "/search/multi",
@@ -272,7 +276,5 @@ $(function() {
             $("#header").find("h1").text("WatchShouldI");
         }
     });
-
-    setBackdrop();
 });
 

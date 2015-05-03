@@ -1,9 +1,7 @@
 $(function() {
     var tmdbApiKey = "3234cd735a781c6bc9cb637e5dad070d";
     var tmdbUrl = "https://api.themoviedb.org/3";
-    var imageUrl = "https://image.tmdb.org/t/p";
     var posterWidth = 500;
-    var backdropWidth = "/w1280";
     var defaultBackdrop = "default";
     var currentBackdrop;
 
@@ -12,10 +10,6 @@ $(function() {
     $('.svg').inlineSVG();
 
     var votesRef = new Firebase("https://watchshouldi.firebaseio.com/votes");
-
-    function generateId(length) {
-        return new Array(length).join().replace(/(.|$)/g, function(){return ((Math.random()*36)|0).toString(36)[Math.random()<.5?"toString":"toUpperCase"]();});
-    }
 
     function createPoll(id, type) {
         var pollId = generateId(6);
@@ -38,28 +32,6 @@ $(function() {
     });
 
     var results;
-
-    function backdropUrl(path) {
-        return imageUrl + backdropWidth + path;
-    }
-
-    function posterUrl(path, width) {
-        return imageUrl + "/w" + width + path;
-    }
-
-    function imdbUrl(imdbId) {
-        return "http://www.imdb.com/title/" + imdbId;
-    }
-
-    function nameOrTitle(data) {
-        if("name" in data) return data.name;
-        else return data.title;
-    }
-
-    function releaseDate(data) {
-        if ("first_air_date" in data) return data.first_air_date;
-        else return data.release_date;
-    }
 
     function showError(errorText) {
         movieDiv.hide();

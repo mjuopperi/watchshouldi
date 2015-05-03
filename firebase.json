@@ -8,6 +8,11 @@
     "**/docs/**"
   ],
   "rewrites": [
-    { "source": "**/vote/*", "destination": "/vote.html" }
+    { "source": "**/vote/*", "destination": "/vote.html" },
+    { "source": "**/vote.css", "destination": "/css/vote.css" },
+    { "source": "**/vote.js", "destination": "/js/vote.js" },
+    { "source": "**/lib/lodash.js", "destination": "/js/lib/lodash.js" },
+    { "source": "**/lib/jquery.inlinesvg.js", "destination": "/js/lib/jquery.inlinesvg.js" },
+    { "source": "**/preloader.gif", "destination": "/img/preloader.gif" }
   ]
 }

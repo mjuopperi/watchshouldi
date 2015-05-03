@@ -128,6 +128,7 @@ select{
     min-height: 100%;
     background-size: cover;
     background-position: 50% 50%;
+    background-color: #168;
 }
 
 #content {

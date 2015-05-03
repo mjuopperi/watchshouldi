@@ -4,7 +4,7 @@ $(function() {
     var imageUrl = "https://image.tmdb.org/t/p";
     var posterWidth = 500;
     var backdropWidth = "/w1280";
-    var defaultBackdrop;
+    var defaultBackdrop = "default";
     var currentBackdrop;
 
     var movieDiv = $("#movie");
@@ -98,13 +98,7 @@ $(function() {
             if (!_.isEmpty(path)) {
                 setBackdropImage(backdropUrl(path));
             } else {
-                if (!_.isEmpty(defaultBackdrop)) setBackdropImage(defaultBackdrop);
-                else {
-                    $.getJSON(tmdbUrl + "/movie/popular?api_key=" + tmdbApiKey, function (data) {
-                        defaultBackdrop = backdropUrl(_.first(data.results).backdrop_path);
-                        setBackdropImage(defaultBackdrop)
-                    })
-                }
+                setDefaultBackdrop();
             }
         }
     }
@@ -118,6 +112,13 @@ $(function() {
             backdrop.hide();
             backdrop.css("background-image", "url(" + url + ")").fadeIn(500);
         });
+    }
+
+    function setDefaultBackdrop() {
+        currentBackdrop = defaultBackdrop;
+        $("#backdrop").fadeOut(400, function() {
+            $(this).css("background-image", "");
+        }).fadeIn(500);
     }
 
     function setPoster(path) {

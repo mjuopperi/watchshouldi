@@ -189,12 +189,15 @@ $(function() {
                     _.map(results, renderResult)
                 )
             ).show();
+            $("#results").find("li").each(function(i) {
+                $(this).delay(i * 50).fadeIn(300);
+            })
         }
     }
 
     function renderResult(result) {
         var imageUrl = _.isEmpty(result.poster_path) ? "img/default_poster.svg" :  posterUrl(result.poster_path, 92);
-        var elem = $("<li>").data("type", result.media_type).data("id", result.id).append(
+        var elem = $("<li>").css("display", "none").data("type", result.media_type).data("id", result.id).append(
             $("<img>").attr("src", imageUrl)).append(
             $("<div>").append(
                 $("<h2>").text(nameOrTitle(result) + " (" + moment(releaseDate(result)).format("YYYY") + ")")).append(

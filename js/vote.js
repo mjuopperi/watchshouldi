@@ -1,11 +1,11 @@
 $(function() {
     $(".svg").inlineSVG();
 
-    var url = window.location.href;
-    var voteId = url.replace("https://watchshouldi.firebaseio.com/votes/", "");
+    var pollId = window.location.pathname.split('/').pop();
+    var pollRef = new Firebase("https://watchshouldi.firebaseio.com/votes/" + pollId);
+    var votesRef = pollRef.child("votes");
+    var commentsRef = pollRef.child("comments");
     var usersRef = new Firebase("https://watchshouldi.firebaseio.com/users");
-    voteId = "7YNzvy";
-    var commentsRef = new Firebase("https://watchshouldi.firebaseio.com/votes/" + voteId + "/comments");
     var chars = 120;
     var charsRemaining;
 

@@ -41,7 +41,11 @@ $(function() {
 
     $("#comments-container form").submit(function(event) {
         event.preventDefault();
-        commentsRef.push({ 'username': localStorage.username, 'comment': $("#input-comment").val(), 'time': moment().format("dddd, MMMM Do YYYY, h:mm:ss a") });
+        commentsRef.push({
+            username: localStorage.username,
+            comment: $("#input-comment").val(),
+            time: moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+        });
         $("#input-comment").val("");
         charsRemaining = chars;
         $("#remaining-chars").html(charsRemaining);

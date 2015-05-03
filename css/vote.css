@@ -175,9 +175,7 @@ p.error {
     position: relative;
     width: 900px;
     text-align: center;
-    margin-top: 60px;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 60px auto;
     background: rgba(255, 255, 255, 0.9);
     -webkit-background-clip: padding;
     -moz-background-clip: padding;

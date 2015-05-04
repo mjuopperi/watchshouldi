@@ -110,7 +110,7 @@ $(function() {
         commentsRef.push({
             username: localStorage.username,
             comment: $("#input-comment").val(),
-            time: moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+            time: moment().format()
         });
         $("#input-comment").val("");
         charsRemaining = chars;
@@ -179,16 +179,17 @@ $(function() {
     })
 });
 
-function getComments(commentsRef) {moment([2007, 0, 29]).fromNow()
+function getComments(commentsRef) {
     commentsRef.orderByChild("comments").on("child_added", function(data) {
         $("#comments").prepend('<div class="comment-box">' +
             '<div class="comment-head">' +
-            '<div class="comment-name">' + data.val().username + '<span>' + data.val().time + '</span></div>' +
+            '<div class="comment-name">' + data.val().username + '<span><abbr class="timeago" title="'+ data.val().time +'"></abbr></span></div>' +
             '</div>' +
             '<div class="comment-content">' + data.val().comment + '</div>' +
             '</div>'
         )
         $(".comment-box").slideDown(200);
+        $("abbr.timeago").timeago();
     })
 }
 

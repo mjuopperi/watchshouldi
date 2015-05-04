@@ -10,6 +10,7 @@
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.1/jquery.timeago.min.js"></script>
+    <script src="js/lib/autosize.min.js"></script>
     <script src="js/util.js"></script>
     <script src="js/vote.js"></script>
 </head>
@@ -46,9 +47,9 @@
                 </div>
                 <div id="comments-container">
                     <form>
-                        <textarea id="input-comment" type="text" name="title" placeholder="Send a comment" maxlength=120/ required></textarea>
+                        <textarea id="input-comment" type="text" name="title" placeholder="Send a comment" maxlength=200 required rows="1"></textarea>
                         <div id="button-container">
-                            <p id="remaining-chars">120</p>
+                            <p id="remaining-chars">200</p>
                             <input type="submit" value="Send">
                         </div>
                     </form>

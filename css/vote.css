@@ -305,7 +305,6 @@ p.error {
 #comments-container textarea {
     width: 100%;
     resize: none;
-    height: 85px;
     border-radius: 2px;
     font-family: 'Lato', sans-serif;
     box-sizing: border-box;

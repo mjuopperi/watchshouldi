@@ -10,8 +10,11 @@ $(function() {
     var votesRef = pollRef.child("votes");
     var commentsRef = pollRef.child("comments");
     var usersRef = new Firebase("https://watchshouldi.firebaseio.com/users");
-    var chars = 120;
+    var chars = 200;
     var charsRemaining;
+    
+    autosize($('textarea'));
+    $("#input-comment").val("");
 
     pollRef.once("value", function(dataSnapshot) {
         var poll = dataSnapshot.exportVal();
@@ -78,10 +81,11 @@ $(function() {
     $(".svg").inlineSVG();
 
     $("#remainingChars").html(chars);
-    $("textarea").keyup(function() {
+    $("textarea").keyup(function(event) {
         var textLength = $("textarea").val().length;
         charsRemaining = chars - textLength;
         $("#remaining-chars").html(charsRemaining);
+        if (event.keyCode == 13) { $("#comments-container form").submit() }
     });
 
     function createUser(username) {
@@ -104,6 +108,7 @@ $(function() {
             $("#modal").fadeOut(500);
         });
     }
+    
 
     $("#comments-container form").submit(function(event) {
         event.preventDefault();

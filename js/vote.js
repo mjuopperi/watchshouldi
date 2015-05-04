@@ -82,9 +82,9 @@ $(function() {
 
     $("#remainingChars").html(chars);
 
-    $("textarea").bind("input change", updateRemainingCharacters);
+    $("textarea").bind("input change keyup", updateRemainingCharacters);
 
-    function updateRemainingCharacters() {
+    function updateRemainingCharacters(event) {
         var textLength = $("textarea").val().length;
         charsRemaining = chars - textLength;
         $("#remaining-chars").html(charsRemaining);

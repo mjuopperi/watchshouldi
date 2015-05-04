@@ -15,6 +15,7 @@
     { "source": "**/lib/lodash.js", "destination": "/js/lib/lodash.js" },
     { "source": "**/lib/jquery.inlinesvg.js", "destination": "/js/lib/jquery.inlinesvg.js" },
     { "source": "**/preloader.gif", "destination": "/img/preloader.gif" },
-    { "source": "**/default_poster.svg", "destination": "/img/default_poster.svg" }
+    { "source": "**/default_poster.svg", "destination": "/img/default_poster.svg" },
+	{ "source": "**/lib/autosize.min.js", "destination": "/js/lib/autosize.min.js" }
   ]
 }

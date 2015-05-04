@@ -81,12 +81,15 @@ $(function() {
     $(".svg").inlineSVG();
 
     $("#remainingChars").html(chars);
-    $("textarea").keyup(function(event) {
+
+    $("textarea").bind("input change", updateRemainingCharacters);
+
+    function updateRemainingCharacters() {
         var textLength = $("textarea").val().length;
         charsRemaining = chars - textLength;
         $("#remaining-chars").html(charsRemaining);
         if (event.keyCode == 13) { $("#comments-container form").submit() }
-    });
+    }
 
     function createUser(username) {
         var userRef = usersRef.push({

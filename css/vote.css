@@ -420,7 +420,8 @@ p.error {
 }
 
 #poster-url-container {
-    display: inline-block
+    display: inline-block;
+    text-align: left;
 }
 
 #short-url {
@@ -431,12 +432,13 @@ p.error {
     resize: none;
     border-radius: 2px;
     font-family: 'Lato', sans-serif;
+    max-width: 200px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     border:1px solid #BEBEBE;
     margin:0;
-    padding: 10px;
+    padding: 4px;
     font-size: 16px;
     line-height: 20px;
     -webkit-transition: all 0.30s ease-in-out;
@@ -448,11 +450,12 @@ p.error {
 }
 
 .short-url-container input[type=button]{
-    height: 36px;
-    width: 36px;
+    height: 20px;
+    width: 20px;
+    margin-bottom: 4px;
     border: none;
     outline: none;
-    background: transparent url("../img/clipboard.svg");
+    background: transparent url("../img/copy.svg");
     background-size: 100%;
     vertical-align: middle;
 }

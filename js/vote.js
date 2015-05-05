@@ -12,7 +12,9 @@ $(function() {
     var usersRef = new Firebase("https://watchshouldi.firebaseio.com/users");
     var chars = 200;
     var charsRemaining;
-    
+
+    shortenUrl(window.location.href);
+
     autosize($('textarea'));
     $("#input-comment").val("");
 
@@ -185,6 +187,15 @@ $(function() {
             updatePoll(dataSnapshot);
         });
     })
+
+    new ZeroClipboard( document.getElementById("copy-button") );
+    $("#copy-button").hover(function() {
+        $("#short-url").addClass("selected")
+    },
+    function () {
+        $("#short-url").removeClass("selected")
+    })
+
 });
 
 function getComments(commentsRef) {
@@ -199,6 +210,25 @@ function getComments(commentsRef) {
         $(".comment-box").slideDown(200);
         $("abbr.timeago").timeago();
     })
+}
+
+function shortenUrl(url) {
+    $.ajax({
+        url: "https://api-ssl.bitly.com/v3/shorten",
+        type: 'GET',
+        data: {
+            access_token: "b9c682e073dc5191cd55cf342b5b5aca1febd805",
+            longUrl: url
+        },
+        success: function (shortUrl) {
+            renderUrl(shortUrl.data.url)
+        }
+    });
+}
+
+function renderUrl(url) {
+    $("#copy-button").attr("data-clipboard-text", url)
+    $("#short-url").val(url);
 }
 
 

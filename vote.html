@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>WatchShouldI</title>
+    <link rel="image_src" href="/img/preview.png" />
+    <meta property="og:image" content="https://watchshouldi.firebaseapp.com/img/preview.png"/>
     <link href="css/vote.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="js/lib/jquery.inlinesvg.js"></script>
@@ -11,6 +13,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.1/jquery.timeago.min.js"></script>
     <script src="js/lib/autosize.min.js"></script>
+    <script src="js/lib/ZeroClipboard.js"></script>
     <script src="js/util.js"></script>
     <script src="js/vote.js"></script>
 </head>
@@ -33,7 +36,14 @@
         <div id="movie">
             <h2>Should I watch...</h2>
             <h1></h1>
-            <img id="poster">
+            <div id="poster-url-container">
+                <img id="poster">
+                <form class="short-url-container">
+                    <input id="short-url" type="text" readonly="readonly" onclick="this.select()">
+                    <input type="button" id="copy-button" class="svg" data-clipboard-text="">
+                </form>
+            </div>
+
             <div id="social">
                 <div id="votes-container">
                     <div id="votes" class="unvoted">

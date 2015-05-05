@@ -16,6 +16,10 @@
     { "source": "**/lib/jquery.inlinesvg.js", "destination": "/js/lib/jquery.inlinesvg.js" },
     { "source": "**/preloader.gif", "destination": "/img/preloader.gif" },
     { "source": "**/default_poster.svg", "destination": "/img/default_poster.svg" },
-	{ "source": "**/lib/autosize.min.js", "destination": "/js/lib/autosize.min.js" }
+	{ "source": "**/lib/autosize.min.js", "destination": "/js/lib/autosize.min.js" },
+	{ "source": "**/lib/ZeroClipboard.js", "destination": "/js/lib/ZeroClipboard.js" },
+	{ "source": "**/lib/ZeroClipboard.swf", "destination": "/js/lib/ZeroClipboard.swf" },
+	{ "source": "**/copy.svg", "destination": "/img/copy.svg" },
+    { "source": "**/preview.png", "destination": "/img/preview.png" }
   ]
 }

@@ -213,7 +213,6 @@ function getComments(commentsRef) {
 }
 
 function shortenUrl(url) {
-    url = "https://watchshouldi.firebaseapp.com/vote/l3T5RW"
     $.ajax({
         url: "https://api-ssl.bitly.com/v3/shorten",
         type: 'GET',

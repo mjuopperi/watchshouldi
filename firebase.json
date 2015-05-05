@@ -19,6 +19,6 @@
 	{ "source": "**/lib/autosize.min.js", "destination": "/js/lib/autosize.min.js" },
 	{ "source": "**/lib/ZeroClipboard.js", "destination": "/js/lib/ZeroClipboard.js" },
 	{ "source": "**/lib/ZeroClipboard.swf", "destination": "/js/lib/ZeroClipboard.swf" },
-	{ "source": "**/clipboard.svg", "destination": "/img/clipboard.svg" }
+	{ "source": "**/copy.svg", "destination": "/img/copy.svg" }
   ]
 }
